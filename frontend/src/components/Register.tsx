@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import api from '../services/api';
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
@@ -34,7 +36,12 @@ const Register = () => {
           name: values.name,
           password: values.password,
         });
-        console.log('User registered:', response.data);
+        const loginResponse = await api.post('/auth/login', {
+          email: values.email,
+          password: values.password,
+        });
+        localStorage.setItem('token', loginResponse.data.access_token);
+        navigate('/homepage');
       } catch (error: any) {
         if (error.response && error.response.status === 409) {
           setErrorMessage('Email already exists');

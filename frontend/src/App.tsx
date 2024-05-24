@@ -1,31 +1,23 @@
-import { useState } from 'react';
-import Register from './components/Register';
-import Login from './components/Login';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import ProtectedRoute from './components/ProtectedRoute';
+import Homepage from './pages/Homepage';
+import Authentication from './components/Authentication';
 
 function App() {
-  const [showRegister, setShowRegister] = useState(true);
 
   return (
-    <div className="min-h-screen bg-[#18171F] text-white flex flex-col justify-center items-center">
-      <div className="bg-[#24232C] p-8 rounded shadow-lg max-w-md w-full">
-        <h1 className="text-2xl font-bold text-center mb-4">User Authentication</h1>
-        <div className="flex justify-center space-x-4 mb-4">
-          <button
-            className={`py-2 px-4 rounded ${showRegister ? 'bg-orange-500' : 'bg-gray-600'}`}
-            onClick={() => setShowRegister(true)}
-          >
-            Register
-          </button>
-          <button
-            className={`py-2 px-4 rounded ${!showRegister ? 'bg-orange-500' : 'bg-gray-600'}`}
-            onClick={() => setShowRegister(false)}
-          >
-            Login
-          </button>
-        </div>
-        {showRegister ? <Register /> : <Login />}
+    <Router>
+      <div className="min-h-screen bg-gray-900 text-white flex flex-col justify-center items-center">
+
+        <Routes>
+          <Route path="/login" element={<Authentication />} />
+          <Route element={<ProtectedRoute />}>
+            <Route path="/homepage" element={<Homepage />} />
+          </Route>
+          <Route path="*" element={<Navigate to="/login" />} />
+        </Routes>
       </div>
-    </div>
+    </Router>
   );
 }
 

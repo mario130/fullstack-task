@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import api from '../services/api';
+import {useNavigate} from 'react-router-dom';
 
 const Login = () => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
@@ -19,9 +21,9 @@ const Login = () => {
       try {
         setErrorMessage(null);
         const response = await api.post('/auth/login', values);
-        console.log('User logged in:', response.data);
         
         localStorage.setItem('token', response.data.access_token);
+        navigate('/homepage');
       } catch (error: any) {
         if (error.response && error.response.status === 401) {
           setErrorMessage('Invalid email or password');
