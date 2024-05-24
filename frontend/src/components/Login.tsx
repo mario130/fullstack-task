@@ -20,7 +20,7 @@ const Login = () => {
     onSubmit: async (values) => {
       try {
         setErrorMessage(null);
-        const response = await api.post('/auth/login', values);
+        const response = await api.post('/auth/signin', values);
         
         localStorage.setItem('token', response.data.access_token);
         navigate('/homepage');

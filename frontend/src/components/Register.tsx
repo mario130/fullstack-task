@@ -31,12 +31,12 @@ const Register = () => {
     onSubmit: async (values) => {
       try {
         setErrorMessage(null);
-        const response = await api.post('/users/signup', {
+        await api.post('/auth/signup', {
           email: values.email,
           name: values.name,
           password: values.password,
         });
-        const loginResponse = await api.post('/auth/login', {
+        const loginResponse = await api.post('/auth/signin', {
           email: values.email,
           password: values.password,
         });
