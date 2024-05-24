@@ -34,9 +34,9 @@ const Login = () => {
   });
 
   return (
-    <form onSubmit={formik.handleSubmit}>
+    <form onSubmit={formik.handleSubmit} className="space-y-4">
       <div>
-        <label htmlFor="email">Email</label>
+        <label htmlFor="email" className="block text-sm font-medium text-gray-300">Email</label>
         <input
           id="email"
           name="email"
@@ -44,11 +44,12 @@ const Login = () => {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.email}
+          className="mt-1 block w-full bg-gray-700 border border-gray-600 rounded shadow-sm py-2 px-3 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
         />
-        {formik.touched.email && formik.errors.email ? <div className="text-red-500">{formik.errors.email}</div> : null}
+        {formik.touched.email && formik.errors.email ? <div className="text-red-500 text-sm">{formik.errors.email}</div> : null}
       </div>
       <div>
-        <label htmlFor="password">Password</label>
+        <label htmlFor="password" className="block text-sm font-medium text-gray-300">Password</label>
         <input
           id="password"
           name="password"
@@ -56,11 +57,14 @@ const Login = () => {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.password}
+          className="mt-1 block w-full bg-gray-700 border border-gray-600 rounded shadow-sm py-2 px-3 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
         />
-        {formik.touched.password && formik.errors.password ? <div className="text-red-500">{formik.errors.password}</div> : null}
+        {formik.touched.password && formik.errors.password ? <div className="text-red-500 text-sm">{formik.errors.password}</div> : null}
       </div>
       {errorMessage && <div className="text-red-500">{errorMessage}</div>}
-      <button type="submit">Login</button>
+      <button type="submit" className="w-full bg-green-600 text-white py-2 px-4 rounded shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+        Login
+      </button>
     </form>
   );
 };
